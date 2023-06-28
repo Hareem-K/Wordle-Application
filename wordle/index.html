@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Wordle</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+
+    <div class="header">
+      <h1> Wordle </h1>
+      <button class="button" id="openSideBar" onclick="toggleFunctions()">&#9432</button>
+      <button class="button button2" id="hint" onclick="getHint()">&#63</button>
+      <button class="button" onclick="darkMode()">&#9681</button>
+    </div>
+    
+    <div id="sidebar">
+      <h3>How to Play</h3>
+      <ul>
+        <li>Start typing. The letters will appear in the boxes</li>
+        <li>Remove letters with Backspace</li>
+        <li>Hit Enter/Return to submit an answer</li>
+        <li>Letters with a green background are in the right spot</li>
+        <li>Letters with the yellow background exist in the word, but are in the wrong spots</li>
+        <li>Letters with the grey background do not exist in the word</li>
+        <li>If you need a hint, click the ? icon</li>
+      </ul>
+    </div>
+    
+    <br>
+    
+    <div id= "main">
+      <div id="board"> </div>
+
+      <br> 
+
+      <h1 id="answer"> </h1>
+
+      <div class="center">
+        <button class="startOver" id="startOver" onclick="startOver()">Start Over</button>
+      </div>
+
+      <div id="result"></div>
+
+    </div> 
+
+    <div id="endMessage">
+      <div id="wonGame"></div>
+      <div id="lostGame"></div>
+    </div>
+
+    <div class="imageFeatures" id="imageFeatures"></div>
+    <div id=""guessed-words></div>
+
+    <div class="footer">
+      <p>© HK </p>
+    </div>
+    
+    <script src="./wordle.js"></script>
+
+  </body>
+</html>
