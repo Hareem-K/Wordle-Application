@@ -13,51 +13,95 @@ var dictionary;
 
 var gameOver = false;
 
-//making dictionary and getting a random word/hint
-const apiKey = "sw0Tr2othT1AyTQtNDUE06LqMckbTiKWaVYhuirv";
-const apiUrl = "https://api.masoudkf.com/v1/wordle";
+//the API has been diconnected, so a local dictionary has been implemented so the game still works
+// //making dictionary and getting a random word/hint
+// const apiKey = "sw0Tr2othT1AyTQtNDUE06LqMckbTiKWaVYhuirv";
+// const apiUrl = "https://api.masoudkf.com/v1/wordle";
 
-fetch(apiUrl, {
-  headers: {
-    "x-api-key": apiKey,
-  },
-})
-.then((response) => { 
-    if (response.ok) {
-        return response.json();
-    } 
-    else {
-        throw new Error("Request failed with status " + response.status);
-    }
-})
-.then((data) => {
-    console.log("data:", data);
-    const localdictionary = data.dictionary;
-    dictionary = localdictionary;
-    console.log("dictionary:", dictionary);
-    const localWords = Object.keys(dictionary);
+// fetch(apiUrl, {
+//   headers: {
+//     "x-api-key": apiKey,
+//   },
+// })
+// .then((response) => { 
+//     if (response.ok) {
+//         return response.json();
+//     } 
+//     else {
+//         throw new Error("Request failed with status " + response.status);
+//     }
+// })
+// .then((data) => {
+//     console.log("data:", data);
+//     const localdictionary = data.dictionary;
+//     dictionary = localdictionary;
+//     console.log("dictionary:", dictionary);
+//     const localWords = Object.keys(dictionary);
 
-    console.log("words:", localWords);
+//     console.log("words:", localWords);
 
-    words = localWords; // assign localWords to global words variable
+//     words = localWords; // assign localWords to global words variable
 
-    const randomIndex = Math.floor(Math.random() * words.length);
-    word = dictionary[randomIndex].word.toUpperCase();
-    value = dictionary[randomIndex].hint;
+//     const randomIndex = Math.floor(Math.random() * words.length);
+//     word = dictionary[randomIndex].word.toUpperCase();
+//     value = dictionary[randomIndex].hint;
 
-    console.log("word:", word);
-    console.log("value:", value);
+//     console.log("word:", word);
+//     console.log("value:", value);
 
-    initialize(); // call the initialize function after the value has been set
-})
+//     initialize(); // call the initialize function after the value has been set
+// })
 
-.catch((error) => {
-    const message = error.message || "Unknown error";
-    const stack = error.stack || "No stack trace available";
-    console.error(`Error caught: ${message}\nStack trace: ${stack}`);
-    console.log("error object:", error);
+// .catch((error) => {
+//     const message = error.message || "Unknown error";
+//     const stack = error.stack || "No stack trace available";
+//     console.error(`Error caught: ${message}\nStack trace: ${stack}`);
+//     console.log("error object:", error);
+// });
+
+
+// Local dictionary with 4-letter words
+const localDictionary = {
+    "1": { word: "FROG", hint: "Amphibian with long hind legs" },
+    "2": { word: "LION", hint: "Large wild cat" },
+    "3": { word: "DEER", hint: "Hoofed grazing animal" },
+    "4": { word: "BEAR", hint: "Large mammal with thick fur" },
+    "5": { word: "FISH", hint: "Aquatic animal" },
+    "6": { word: "TREE", hint: "Tall perennial plant" },
+    "7": { word: "ROSE", hint: "Fragrant flower" },
+    "8": { word: "COWS", hint: "Domesticated mammals" },
+    "9": { word: "RAIN", hint: "Water falling from the sky" },
+    "10": { word: "FIRE", hint: "Combustion resulting in heat and light" },
+    "11": { word: "SOUP", hint: "Liquid food typically served hot" },
+    "12": { word: "MARS", hint: "Fourth planet from the Sun" },
+    "13": { word: "GOLD", hint: "Precious metal" },
+    "14": { word: "WOLF", hint: "Wild carnivorous mammal" },
+    "15": { word: "CAKE", hint: "Sweet baked dessert" },
+    "16": { word: "WIND", hint: "Moving air" },
+    "17": { word: "JUMP", hint: "Move off the ground" },
+    "18": { word: "KITE", hint: "Light frame covered with paper or fabric" },
+    "19": { word: "RAIN", hint: "Water falling from the sky" },
+    "20": { word: "FOOD", hint: "Edible substance" },
+};
+  
+const localWords = Object.keys(localDictionary);
+
+console.log("localWords:", localWords);
+
+words = localWords;
+const randomIndex = Math.floor(Math.random() * words.length);
+word = localDictionary[randomIndex].word.toUpperCase();
+value = localDictionary[randomIndex].hint;
+
+console.log("word:", word);
+console.log("value:", value);
+
+// Making dictionary and getting a random word/hint
+dictionary = localDictionary;
+
+document.addEventListener("DOMContentLoaded", function () {
+initialize(); // Call the initialize function after the DOM has loaded
 });
-
 
 function initialize() {
 
