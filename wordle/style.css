@@ -152,7 +152,8 @@ body {
   font-size: 20px;
   color: white;
   cursor: pointer;
-  position: absolute;
+  z-index: 1000;
+  position: relative;
   transition: all 0.3s ease-in-out;
 }
 
