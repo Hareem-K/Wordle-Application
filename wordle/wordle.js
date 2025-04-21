@@ -1,3 +1,7 @@
+console.log("wordle.js is loaded");
+
+
+  
 //global variables
 var height = 4; //number of guesses
 var width = 4; //length of word
@@ -80,9 +84,29 @@ const localDictionary = {
     "16": { word: "WIND", hint: "Moving air" },
     "17": { word: "JUMP", hint: "Move off the ground" },
     "18": { word: "KITE", hint: "Light frame covered with paper or fabric" },
-    "19": { word: "RAIN", hint: "Water falling from the sky" },
+    "19": { word: "SNOW", hint: "Frozen precipitation" },
     "20": { word: "FOOD", hint: "Edible substance" },
-};
+    "21": { word: "MOON", hint: "Earth's natural satellite" },
+    "22": { word: "DUCK", hint: "Waterfowl that quacks" },
+    "23": { word: "FORK", hint: "Utensil used to eat" },
+    "24": { word: "WARM", hint: "Slightly hot" },
+    "25": { word: "BLUE", hint: "Color of the sky" },
+    "26": { word: "CHAT", hint: "Casual conversation" },
+    "27": { word: "PLAY", hint: "To engage in activity for fun" },
+    "28": { word: "BIRD", hint: "Feathered flying animal" },
+    "29": { word: "WISH", hint: "A hopeful desire" },
+    "30": { word: "PACK", hint: "To prepare your things" },
+    "31": { word: "DROP", hint: "Let something fall" },
+    "32": { word: "SING", hint: "Make music with your voice" },
+    "33": { word: "SHIP", hint: "Boat for ocean travel" },
+    "34": { word: "TACO", hint: "Mexican food with a folded shell" },
+    "35": { word: "GOAL", hint: "What you aim to achieve" },
+    "36": { word: "MILK", hint: "White liquid from cows" },
+    "37": { word: "DUST", hint: "Tiny particles that settle" },
+    "38": { word: "LOCK", hint: "Secures a door" },
+    "39": { word: "HAND", hint: "Part of your arm with fingers" },
+    "40": { word: "CAMP", hint: "Outdoor stay with tents" }
+  };  
   
 const localWords = Object.keys(localDictionary);
 
@@ -100,8 +124,19 @@ console.log("value:", value);
 dictionary = localDictionary;
 
 document.addEventListener("DOMContentLoaded", function () {
-initialize(); // Call the initialize function after the DOM has loaded
-});
+    console.log("DOM fully loaded, initializing game...");
+  
+    initialize();
+  
+    const btn = document.getElementById("startOver");
+    if (btn) {
+      btn.addEventListener("click", resetGame);
+      console.log("Start Over button found and listener attached.");
+    } else {
+      console.log("Start Over button NOT found!");
+    }
+  });
+  
 
 function initialize() {
 
@@ -303,43 +338,48 @@ function disableWinScreen() {
     document.querySelector('#hint').disabled = false;
 }
 
-function startOver() {   
-    startOver.disabled = true;
-    startOver.textContent = 'Loading...';
-  
+function resetGame() {  
+    console.log("Start Over clicked");
+    const startOverBtn = document.getElementById("startOver");
+    startOverBtn.disabled = true;
+    startOverBtn.textContent = 'Loading...';
+
     disableWinScreen();
-  
-    //reset global variables
+
+    // Reset global variables
     row = 0;
     col = 0;
     gameOver = false;
-  
-    //clear game board of all guesses
+
+    // Clear game board of all guesses
     for (let r = 0; r < height; r++) {
         for (let c = 0; c < width; c++) {
             let currTile = document.getElementById(r.toString() + '-' + c.toString());
             currTile.innerText = "";
-            currTile.classList.remove("correct");
-            currTile.classList.remove("present");
-            currTile.classList.remove("absent");
+            currTile.classList.remove("correct", "present", "absent");
         }
     }
 
-    //clear any displayed messages
-    let message1 = document.getElementById("wonGame").style.display = "none";
-    let message3 = document.getElementById("lostGame").style.display = "none";
+    // Hide messages
+    document.getElementById("wonGame").style.display = "none";
+    document.getElementById("lostGame").style.display = "none";
+    document.getElementById("result").style.display = "none";
 
-    // fetch a new random word and hint from the API
+    // Fetch a new random word and hint
     const randomIndex = Math.floor(Math.random() * words.length);
     word = dictionary[randomIndex].word.toUpperCase();
     value = dictionary[randomIndex].hint;
     console.log("word:", word);
     console.log("value:", value);
-  
-    // add event listener back to getHint button
+
+    // Reattach hint listener
     document.getElementById("result").addEventListener("click", getHint);
 
+    // ✅ Re-enable the start over button
+    startOverBtn.disabled = false;
+    startOverBtn.textContent = 'Start Over';
 }
+
   
 
 function displayWinMessage() {
